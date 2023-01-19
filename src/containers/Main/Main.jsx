@@ -141,9 +141,13 @@ const [search, setSearch] = useState("");
             key={emp.login.uuid}
           />
         ))} */}
-        {teamState.map(team => {
-            return <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />
-        })}
+        {teamState.filter(
+            team => team.division.toLowerCase().includes(search.toLowerCase()) ||
+            team.teamName.toLowerCase().includes(search.toLowerCase()) ||
+            String(team.teamNum).includes(search)
+        ).map(team => 
+            <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />
+        )}
         
   </tbody>
 </table>
