@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 import API from "../../utils/API";
 import Row from "../../components/Row/Row"
+import "./Main.css";
+
 
 const Main = () => {
-const [dataState, setDataState] = useState([])
+const [dataState, setDataState] = useState([]);
+const [search, setSearch] = useState("");
+
 
 // useEffect(() => {
 //     API.getAll()
@@ -15,12 +19,91 @@ const [dataState, setDataState] = useState([])
 //     .catch(err => console.log(err));
 // }, [])
 
+// needs to be refactored
+  // sorts the names from A-Z, if the first names are the same, it sorts by last name.
+//   const handleSortUpName = () => {
+//     const spreadEmployee = [...employeeState];
+//     const sortedEmployees = spreadEmployee.sort((a,b) => (a.name.first > b.name.first) ? 1 : (a.name.first === b.name.first) ? ((a.name.last > b.name.last)? 1 : -1): -1)
+//     setEmployeeState(sortedEmployees);
+//   };
+
+// needs to be refactored
+    // sorts the names from Z-A, if the first names are the same, it sorts by last name.
+//   const handleSortDownName = () => {
+//     const spreadEmployee = [...employeeState];
+//     const sortedEmployees = spreadEmployee.sort((a,b) => (b.name.first > a.name.first) ? 1 : (b.name.first > a.name.first) ? ((b.name.last > a.name.last) ?1 : -1): -1)
+//     setEmployeeState(sortedEmployees);
+//   };
+
+  // filters the search results as the search value is typed
+  const handleInputChange = event => {
+    let value = event.target.value;
+    setSearch(value);
+  };
+
 
     return(
-        <div>
-            <h1>Hello World!!!</h1>
-            <Row />
+        <>
+      <div style={{backgroundColor: "teal", color: "white"}} className="row">
+      <div className="col-sm-4">
+      </div>
+        <div className="col-sm-4">
+          <div className="input-group" >
+      <input type="text" className="form-control mb-3 mt-3" name="search" value={search} onChange={handleInputChange} placeholder="Search"/>
+      </div>
+      <div className="col-sm-4">
+      </div>
         </div>
+      </div>
+      <div className="row">
+          <div className="col-sm">
+        <table className="table table-hover">
+  <thead className="text-center">
+    <tr>
+      <th scope="col">Team Number</th>
+      <th scope="col">
+        <span>
+          {/* <button onClick={handleSortUpName} >
+            <i className="fas fa-angle-double-up">
+              </i> 
+          </button> */}
+        </span> 
+        <span> Team Name </span> 
+        <span>
+          {/* <button onClick={handleSortDownName} >
+             <i className="fas fa-angle-double-down">
+               </i>
+          </button> */}
+        </span>
+      </th>
+      <th scope="col">Points</th>
+      <th scope="col">Rank</th>
+    </tr>
+  </thead>
+  <tbody className="text-center">
+      {/* Row component: The .filter function is a part that enables the live filtering you see on the site, then the .map creates the rows of employees that get filtered. */}
+      {/* {employeeState
+      .filter(
+       emp => emp.name.first.toLowerCase().includes(search.toLowerCase()) ||
+       emp.name.last.toLowerCase().includes(search.toLowerCase()) ||
+       emp.cell.includes(search) ||
+       emp.email.toLowerCase().includes(search.toLowerCase()))
+       .map(emp => (
+          <Row
+            firstName={emp.name.first}
+            lastName={emp.name.last}
+            phone={emp.cell}
+            email={emp.email}
+            picture={emp.picture.thumbnail}
+            key={emp.login.uuid}
+          />
+        ))} */}
+        <Row teamName={"WodderFodder"} teamNum={1} rank={10} points={65} />
+  </tbody>
+</table>
+</div>
+        </div>
+        </>
     )
 }
 
