@@ -86,6 +86,10 @@ const [search, setSearch] = useState("");
     setSearch(value);
   };
 
+  const showTeams = () => {
+    
+  }
+
 
     return(
         <>
