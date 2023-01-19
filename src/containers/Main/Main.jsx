@@ -11,28 +11,28 @@ const [teamState, setTeamState] = useState([
         teamName: "Wodder Fodder",
         teamNum: 1,
         points: 65,
-        rank: 6
+        rank: 3
     },
     {
         division: "scaled",
         teamName: "Scaled the walls",
         teamNum: 2,
         points: 165,
-        rank: 5
+        rank: 3
     },
     {
         division: "rx",
         teamName: "Bongs and Barbells",
         teamNum: 3,
         points: 265,
-        rank: 4
+        rank: 2
     },
     {
         division: "rx",
         teamName: "VR don't make PRs",
         teamNum: 4,
         points: 365,
-        rank: 3
+        rank: 1
     },
     {
         division: "scaled",
@@ -49,6 +49,9 @@ const [teamState, setTeamState] = useState([
         rank: 1
     },
 ]);
+
+
+
 const [search, setSearch] = useState("");
 
 // useEffect(() => {
@@ -86,7 +89,7 @@ const [search, setSearch] = useState("");
 
     return(
         <>
-      <div style={{backgroundColor: "teal", color: "white"}} className="row">
+      <div style={{backgroundColor: "black", color: "white"}} className="row">
       <div className="col-sm-4">
       </div>
         <div className="col-sm-4">
@@ -124,24 +127,11 @@ const [search, setSearch] = useState("");
     </tr>
   </thead>
   <tbody className="text-center">
-      {/* Row component: The .filter function is a part that enables the live filtering you see on the site, then the .map creates the rows of employees that get filtered. */}
-      {/* {employeeState
-      .filter(
-       emp => emp.name.first.toLowerCase().includes(search.toLowerCase()) ||
-       emp.name.last.toLowerCase().includes(search.toLowerCase()) ||
-       emp.cell.includes(search) ||
-       emp.email.toLowerCase().includes(search.toLowerCase()))
-       .map(emp => (
-          <Row
-            firstName={emp.name.first}
-            lastName={emp.name.last}
-            phone={emp.cell}
-            email={emp.email}
-            picture={emp.picture.thumbnail}
-            key={emp.login.uuid}
-          />
-        ))} */}
-        {teamState.filter(
+    {/* sorts the teams by rank and then division and display them to the page */}
+        {search === "" ? teamState.sort((a,b) => a.rank - b.rank).sort((a,b) => a.division.length - b.division.length).map(team => 
+            <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />):
+        
+        teamState.filter(
             team => team.division.toLowerCase().includes(search.toLowerCase()) ||
             team.teamName.toLowerCase().includes(search.toLowerCase()) ||
             String(team.teamNum).includes(search)
