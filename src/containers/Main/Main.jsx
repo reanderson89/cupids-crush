@@ -93,16 +93,14 @@ const [search, setSearch] = useState("");
 
     return(
         <>
-      <div style={{backgroundColor: "black", color: "white"}} className="row">
+      <div style={{backgroundColor: "black", color: "white"}} className="row justify-content-end">
       <div className="col-sm-4">
-      </div>
-        <div className="col-sm-4">
-          <div className="input-group" >
-      <input type="text" className="form-control mb-3 mt-3" name="search" value={search} onChange={handleInputChange} placeholder="Search"/>
+        <button className='btn btn-lg my-3'>RX</button>
       </div>
       <div className="col-sm-4">
+        <button className='btn btn-lg my-3'>Scaled</button>
       </div>
-        </div>
+
       </div>
       <div className="row">
           <div className="col-sm">
@@ -135,6 +133,8 @@ const [search, setSearch] = useState("");
          {teamState.sort((a,b) => a.rank - b.rank).sort((a,b) => a.division.length - b.division.length).map(team => 
             <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />)}
 
+
+        
         {/* {search === "" ? teamState.sort((a,b) => a.rank - b.rank).sort((a,b) => a.division.length - b.division.length).map(team => 
             <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />):
         

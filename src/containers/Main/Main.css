@@ -1,7 +1,7 @@
 /* Makes the buttons not look like buttons */
 
 button {
-    background: none!important;
+    background: red!important;
     border: none;
     padding: 0!important;
     /*optional*/
