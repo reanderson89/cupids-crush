@@ -5,9 +5,51 @@ import "./Main.css";
 
 
 const Main = () => {
-const [dataState, setDataState] = useState([]);
+const [teamState, setTeamState] = useState([
+    {
+        division: "rx",
+        teamName: "Wodder Fodder",
+        teamNum: 1,
+        points: 65,
+        rank: 6
+    },
+    {
+        division: "scaled",
+        teamName: "Scaled the walls",
+        teamNum: 2,
+        points: 165,
+        rank: 5
+    },
+    {
+        division: "rx",
+        teamName: "Bongs and Barbells",
+        teamNum: 3,
+        points: 265,
+        rank: 4
+    },
+    {
+        division: "rx",
+        teamName: "VR don't make PRs",
+        teamNum: 4,
+        points: 365,
+        rank: 3
+    },
+    {
+        division: "scaled",
+        teamName: "Butted and Gutted",
+        teamNum: 5,
+        points: 465,
+        rank: 2
+    },
+    {
+        division: "scaled",
+        teamName: "Something Funny",
+        teamNum: 6,
+        points: 565,
+        rank: 1
+    },
+]);
 const [search, setSearch] = useState("");
-
 
 // useEffect(() => {
 //     API.getAll()
@@ -61,6 +103,7 @@ const [search, setSearch] = useState("");
   <thead className="text-center">
     <tr>
       <th scope="col">Team Number</th>
+      <th scope="col">Division</th>
       <th scope="col">
         <span>
           {/* <button onClick={handleSortUpName} >
@@ -98,7 +141,10 @@ const [search, setSearch] = useState("");
             key={emp.login.uuid}
           />
         ))} */}
-        <Row teamName={"WodderFodder"} teamNum={1} rank={10} points={65} />
+        {teamState.map(team => {
+            return <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />
+        })}
+        
   </tbody>
 </table>
 </div>
