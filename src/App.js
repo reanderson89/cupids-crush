@@ -1,10 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
 import Main from "./containers/Main/Main.jsx"
 
 function App() {
   return (
-    <div><Main /></div>
+    <div>
+      <div  className="container" >
+        <div className="row">
+          <div style={{backgroundColor: "red", color: "white"}} className="col text-center">
+            <h1  className="text-center">Cupids Crush</h1>
+            <h5  className="text-center">Search for Teams by Number, Division, or Name!</h5>
+          </div>
+        </div>
+        <Main />         
+      </div>
+    </div>
   );
 }
 
