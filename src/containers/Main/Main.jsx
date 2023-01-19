@@ -132,7 +132,10 @@ const [search, setSearch] = useState("");
   </thead>
   <tbody className="text-center">
     {/* sorts the teams by rank and then division and display them to the page */}
-        {search === "" ? teamState.sort((a,b) => a.rank - b.rank).sort((a,b) => a.division.length - b.division.length).map(team => 
+         {teamState.sort((a,b) => a.rank - b.rank).sort((a,b) => a.division.length - b.division.length).map(team => 
+            <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />)}
+
+        {/* {search === "" ? teamState.sort((a,b) => a.rank - b.rank).sort((a,b) => a.division.length - b.division.length).map(team => 
             <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />):
         
         teamState.filter(
@@ -141,7 +144,7 @@ const [search, setSearch] = useState("");
             String(team.teamNum).includes(search)
         ).map(team => 
             <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />
-        )}
+        )} */}
         
   </tbody>
 </table>
