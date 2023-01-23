@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/cupids-crush/static/css/main.4a9d5ccb.css",
-    "main.js": "/cupids-crush/static/js/main.8ce39860.js",
+    "main.css": "/cupids-crush/static/css/main.6b339c19.css",
+    "main.js": "/cupids-crush/static/js/main.2a3e0581.js",
     "static/js/787.dc850a4c.chunk.js": "/cupids-crush/static/js/787.dc850a4c.chunk.js",
     "index.html": "/cupids-crush/index.html",
-    "main.4a9d5ccb.css.map": "/cupids-crush/static/css/main.4a9d5ccb.css.map",
-    "main.8ce39860.js.map": "/cupids-crush/static/js/main.8ce39860.js.map",
+    "main.6b339c19.css.map": "/cupids-crush/static/css/main.6b339c19.css.map",
+    "main.2a3e0581.js.map": "/cupids-crush/static/js/main.2a3e0581.js.map",
     "787.dc850a4c.chunk.js.map": "/cupids-crush/static/js/787.dc850a4c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4a9d5ccb.css",
-    "static/js/main.8ce39860.js"
+    "static/css/main.6b339c19.css",
+    "static/js/main.2a3e0581.js"
   ]
 }
