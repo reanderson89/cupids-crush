@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import API from "../../utils/API";
 import Row from "../../components/Row/Row"
 import "./Main.css";
+import { render } from '@testing-library/react';
 
 
 const Main = () => {
@@ -10,6 +11,8 @@ const [teamState, setTeamState] = useState([
         division: "rx",
         teamName: "Wodder Fodder",
         teamNum: 1,
+        wod1: 30,
+        wod2: 35,
         points: 65,
         rank: 3
     },
@@ -17,42 +20,53 @@ const [teamState, setTeamState] = useState([
         division: "scaled",
         teamName: "Scaled the walls",
         teamNum: 2,
-        points: 165,
+        wod1: 35,
+        wod2: 40,
+        points: 75,
         rank: 3
     },
     {
         division: "rx",
         teamName: "Bongs and Barbells",
         teamNum: 3,
-        points: 265,
+        wod1: 45,
+        wod2: 40,
+        points: 85,
         rank: 2
     },
     {
         division: "rx",
         teamName: "VR don't make PRs",
         teamNum: 4,
-        points: 365,
+        wod1: 20,
+        wod2: 75,
+        points: 95,
         rank: 1
     },
     {
         division: "scaled",
         teamName: "Butted and Gutted",
         teamNum: 5,
-        points: 465,
+        wod1: 55,
+        wod2: 50,
+        points: 105,
         rank: 2
     },
     {
         division: "scaled",
         teamName: "Something Funny",
         teamNum: 6,
-        points: 565,
+        wod1: 50,
+        wod2: 65,
+        points: 115,
         rank: 1
     },
 ]);
 
 
 
-const [search, setSearch] = useState("");
+// const [search, setSearch] = useState("");
+let [currentDiv, setCurrentDiv] = useState("all");
 
 // useEffect(() => {
 //     API.getAll()
@@ -64,27 +78,33 @@ const [search, setSearch] = useState("");
 //     .catch(err => console.log(err));
 // }, [])
 
-// needs to be refactored
-  // sorts the names from A-Z, if the first names are the same, it sorts by last name.
-//   const handleSortUpName = () => {
-//     const spreadEmployee = [...employeeState];
-//     const sortedEmployees = spreadEmployee.sort((a,b) => (a.name.first > b.name.first) ? 1 : (a.name.first === b.name.first) ? ((a.name.last > b.name.last)? 1 : -1): -1)
-//     setEmployeeState(sortedEmployees);
-//   };
-
-// needs to be refactored
-    // sorts the names from Z-A, if the first names are the same, it sorts by last name.
-//   const handleSortDownName = () => {
-//     const spreadEmployee = [...employeeState];
-//     const sortedEmployees = spreadEmployee.sort((a,b) => (b.name.first > a.name.first) ? 1 : (b.name.first > a.name.first) ? ((b.name.last > a.name.last) ?1 : -1): -1)
-//     setEmployeeState(sortedEmployees);
-//   };
 
   // filters the search results as the search value is typed
-  const handleInputChange = event => {
-    let value = event.target.value;
-    setSearch(value);
-  };
+  // const handleInputChange = event => {
+  //   let value = event.target.value;
+  //   setSearch(value);
+  // };
+
+  const handleDivChange = event => {
+    setCurrentDiv(event.target.value);
+    displayDivision();
+  }
+
+  // change whats being displayed depending on which current division is selected
+  const displayDivision = () => {
+    let divToDisplay;
+    if(currentDiv === "all"){
+      divToDisplay = teamState.sort((a,b) => a.rank - b.rank).sort((a,b) => a.division.length - b.division.length).map(team => 
+        <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />)
+    } else if(currentDiv === "scaled"){
+      divToDisplay = teamState.filter(team => team.division === "scaled").sort((a,b) => a.rank - b.rank).map(team => 
+        <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />)
+    }else if(currentDiv === "rx"){
+      divToDisplay = teamState.filter(team => team.division === "rx").sort((a,b) => a.rank - b.rank).map(team => 
+        <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />)
+    }
+    return divToDisplay;
+  }
 
   const showTeams = () => {
     
@@ -93,12 +113,18 @@ const [search, setSearch] = useState("");
 
     return(
         <>
-      <div style={{backgroundColor: "black", color: "white"}} className="row justify-content-end">
-      <div className="col-sm-4">
-        <button className='btn btn-lg my-3'>RX</button>
+      <div style={{backgroundColor: "black", color: "white"}} className="row justify-content-evenly">
+      <div className="col-sm-3">
+      <label htmlFor="allDivs" className='btn btn-lg m-3'>All</label>
+        <input type="radio" id="allDivs" value="all" name="divState" onChange={handleDivChange} defaultChecked="checked"/>
       </div>
-      <div className="col-sm-4">
-        <button className='btn btn-lg my-3'>Scaled</button>
+      <div className="col-sm-3">
+      <label htmlFor="rxDiv" className='btn btn-lg m-3'>Rx</label>
+        <input type="radio" id="rxDiv" value="rx" name="divState" onChange={handleDivChange}/>
+      </div>
+      <div className="col-sm-3" >
+      <label htmlFor="scaledDiv" className='btn btn-lg m-3' >Scaled</label>
+        <input type="radio" id="scaledDiv" value="scaled" name="divState" onChange={handleDivChange}/>
       </div>
 
       </div>
@@ -130,10 +156,9 @@ const [search, setSearch] = useState("");
   </thead>
   <tbody className="text-center">
     {/* sorts the teams by rank and then division and display them to the page */}
-         {teamState.sort((a,b) => a.rank - b.rank).sort((a,b) => a.division.length - b.division.length).map(team => 
-            <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />)}
-
-
+         {/* {teamState.sort((a,b) => a.rank - b.rank).sort((a,b) => a.division.length - b.division.length).map(team => 
+            <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />)} */}
+          {displayDivision()}
         
         {/* {search === "" ? teamState.sort((a,b) => a.rank - b.rank).sort((a,b) => a.division.length - b.division.length).map(team => 
             <Row division={team.division} teamName={team.teamName} teamNum={team.teamNum} rank={team.rank} points={team.points} />):
@@ -152,6 +177,7 @@ const [search, setSearch] = useState("");
         </div>
         </>
     )
+      
 }
 
 export default Main
