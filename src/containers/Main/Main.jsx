@@ -64,8 +64,8 @@ const Main = () => {
 // ]);
 
 const [teamsToDisplay, setTeamsToDisplay] = useState([]);
-let [currentDiv, setCurrentDiv] = useState("all");
-let [currentEvent, setCurrentEvent] = useState("overall")
+let [currentDiv, setCurrentDiv] = useState(0);
+let [currentEvent, setCurrentEvent] = useState(0)
 
 // useEffect(() => {
 //     API.getAll()
@@ -100,45 +100,41 @@ let [currentEvent, setCurrentEvent] = useState("overall")
   };
 
   const handleDivChange = event => {
-    setCurrentDiv(event.target.value);
+    setCurrentDiv(Number(event.target.value));
   }
 
   const handleEventChange = event => {
-    setCurrentEvent(event.target.value)
+    setCurrentEvent(Number(event.target.value) -1)
   }
 
   // change whats being displayed depending on which current division is selected
-  const displayDivision = () => {
+  const displayTeams = () => {
+    console.log(`Current Div: ${currentDiv}`);
+    console.log(`Current Event: ${currentEvent}`);
     let divToDisplay;
-    if(currentDiv === "all"){
+    if(currentDiv === 0){
       divToDisplay = sortAllTeamsByRankAndDiv();
-    } else if(currentDiv === "scaled"){
-      if(currentEvent !== "overall"){
+    } else if(currentDiv > 0){
+      if(currentEvent >= 0){
         divToDisplay = sortByDivAndEvent(currentEvent, currentDiv);
         return divToDisplay;
       }
       divToDisplay = sortScaledTeamsByRank();
-    }else if(currentDiv === "rx"){
-      if(currentEvent !== "overall"){
-        divToDisplay = sortByDivAndEvent(currentEvent, currentDiv);
-        return divToDisplay;
-      }
-      divToDisplay = sortRxTeamsByRank();
     }
     return divToDisplay;
   }
 
   // sort by rank
-  const sortAllTeamsByRankAndDiv = () => teamsToDisplay.sort((a,b) => a.rank - b.rank).sort((a,b) => a["division_id"] - b["division_id"]).map(team => 
+  const sortAllTeamsByRankAndDiv = () => teamsToDisplay.sort((a,b) => a.rank - b.rank).sort((a,b) => a.team["division_id"] - b.team["division_id"]).map(team => 
       <Row team={team} key={team.team.team}/>)
   
-  const sortScaledTeamsByRank = () => teamsToDisplay.filter(team => team.division === "scaled").sort((a,b) => a.rank - b.rank).map(team => 
+  const sortScaledTeamsByRank = () => teamsToDisplay.sort((a,b) => a.rank - b.rank).map(team => 
     <Row team={team} key={team.team.team}/>)
 
-  const sortRxTeamsByRank = () => teamsToDisplay.filter(team => team.division === "rx").sort((a,b) => a.rank - b.rank).map(team => 
+  const sortRxTeamsByRank = () => teamsToDisplay.sort((a,b) => a.rank - b.rank).map(team => 
     <Row team={team} key={team.team.team}/>)
 
-  const sortByDivAndEvent = (wodNum, div) => teamsToDisplay.filter(team => team.division === div).sort((a,b) => b[wodNum] - a[wodNum]).map(team => 
+  const sortByDivAndEvent = (wodNum, div) => teamsToDisplay.filter(team => team.team["division_id"] === div).sort((a,b) => a.eventScores[wodNum].rank - b.eventScores[wodNum].rank).map(team => 
     <Row team={team} key={team.team.team}/>)
 
     return(
@@ -148,15 +144,15 @@ let [currentEvent, setCurrentEvent] = useState("overall")
         <h3 className="col-sm-2 m-3">Division:</h3>
       <div className="col-sm-2">
       <label htmlFor="allDivs" className='btn btn-lg m-3'>All</label>
-        <input type="radio" id="allDivs" value="all" name="divState" onChange={handleDivChange} defaultChecked="checked"/>
+        <input type="radio" id="allDivs" value="0" name="divState" onChange={handleDivChange} defaultChecked="checked"/>
       </div>
       <div className="col-sm-2">
       <label htmlFor="rxDiv" className='btn btn-lg m-3'>Rx</label>
-        <input type="radio" id="rxDiv" value="rx" name="divState" onChange={handleDivChange}/>
+        <input type="radio" id="rxDiv" value="1" name="divState" onChange={handleDivChange}/>
       </div>
       <div className="col-sm-2" >
-      <label htmlFor="scaledDiv" className='btn btn-lg m-3' >Scaled</label>
-        <input type="radio" id="scaledDiv" value="scaled" name="divState" onChange={handleDivChange}/>
+      <label htmlFor="scaledDiv" className='btn btn-lg m-3'>Scaled</label>
+        <input type="radio" id="scaledDiv" value="2" name="divState" onChange={handleDivChange}/>
       </div>
       </div>
 
@@ -165,15 +161,15 @@ let [currentEvent, setCurrentEvent] = useState("overall")
       <h3 className="col-sm-2 m-3">Event:</h3>
       <div className="col-sm-2">
       <label htmlFor="overall" className='btn btn-lg m-3'>Overall</label>
-        <input type="radio" id="overall" value="overall" name="wodState" onChange={handleEventChange} defaultChecked="checked"/>
+        <input type="radio" id="overall" value="0" name="wodState" onChange={handleEventChange} defaultChecked="checked"/>
       </div>
       <div className="col-sm-2">
       <label htmlFor="wod1" className='btn btn-lg m-3'>Event-1</label>
-        <input type="radio" id="wod1" value="wod1" name="wodState" onChange={handleEventChange}/>
+        <input type="radio" id="wod1" value="1" name="wodState" onChange={handleEventChange}/>
       </div>
       <div className="col-sm-2">
       <label htmlFor="wod2" className='btn btn-lg m-3'>Event-2</label>
-        <input type="radio" id="wod2" value="wod2" name="wodState" onChange={handleEventChange}/>
+        <input type="radio" id="wod2" value="2" name="wodState" onChange={handleEventChange}/>
       </div>
 
       </div>
@@ -195,7 +191,7 @@ let [currentEvent, setCurrentEvent] = useState("overall")
     </tr>
   </thead>
   <tbody className="text-center">
-    {displayDivision()}
+    {displayTeams()}
   </tbody>
 </table>
 </div>
