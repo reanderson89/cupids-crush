@@ -2,12 +2,15 @@
 const Row = ({team}) => {
     return (
     <tr>
-      <td>{team.teamNum}</td>
-      <td>{team.division}</td>
-      <td>{team.teamName}</td>
-      <td>{team.wod1}</td>
-      <td>{team.wod2}</td>
-      <td>{team.wod1 + team.wod2}</td>
+      <td>{team.team.description}</td>
+      <td>{team.team["division_id"]}</td>
+      <td>{team.team.team}</td>
+      <td>{team.eventScores[0].rank}</td>
+      <td>{team.eventScores[1].rank}</td>
+      <td>{team.eventScores[2].rank}</td>
+      <td>{team.eventScores[3].rank}</td>
+      <td>{team.eventScores[4].rank}</td>
+      <td>{team.score}</td>
       <td>{team.rank}</td>
     </tr>
     );
