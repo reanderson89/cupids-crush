@@ -1,9 +1,12 @@
 import axios from "axios";
-const query = "http://127.0.0.1:8000/finalResults";
+const rootUrl = "http://127.0.0.1:8000/";
 
 
 export default {
-  getAll: function() {
-    return axios.get(`${query}`);
+  getAllTeams: function() {
+    return axios.get(`${rootUrl}finalResults`);
+  },
+  getAllDivisionsAndEvents: function() {
+    return axios.get(`${rootUrl}`);
   }
 };
