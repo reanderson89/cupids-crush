@@ -1,3 +1,5 @@
+// this component is used to create the selectable events listed in the "events" dropdown menu
+
 const EventSelect = ({ events, handleEventChange }) => {
 
   return (

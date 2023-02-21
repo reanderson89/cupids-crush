@@ -6,16 +6,9 @@
   * [Technology](#technology)
   * [Questions](#questions)
 
-      
-  ## **Live Link**
-  https://glacial-falls-13622.herokuapp.com/      
+  
   ## **Description**
-  Cupids Crush is a website built using React.js to display current team or individual standings for a competition. It is being built to be used for local events, though it can be easily used anywhere with a few adjustments. The website makes API calls to receive the current standings from the database being used in the competition. It is still in development, especially the UI portion. There is currently no deployed version of the application.
-
-  ## **Demo**
-  #### **Desktop/Laptop**
-  ![home page](public/assets/demo.gif)
-
+  Cupids Crush is a website built using React.js to display current team or individual standings for a competition. You are able filter the results by specific divisions and/or events. It is being built to be used for local events, though it can be easily used anywhere with a few adjustments. The website makes API calls to receive the current standings from the database being used in the competition. It is still in development. There is currently no deployed version of the application.
 
       
    ## **Contributors**

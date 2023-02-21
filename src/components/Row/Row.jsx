@@ -1,4 +1,4 @@
-// deconstructed the props object and called only what was needed. This is where all of the employees individual information will get past to as the rows are created.
+// this component is used to create all of the rows for each team in the competition
 const Row = ({team}) => {
     return (
     <tr>

@@ -7,9 +7,11 @@ import EventSelect from "../../components/EventSelect/EventSelect";
 
 const Main = () => {
 
+  // state variables for the incoming standings to be set to
   const [teamsToDisplay, setTeamsToDisplay] = useState([]);
   const [allDivisions, setAllDivisions] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
+  // state variables to track what division/event the user is looking at
   const [currentDiv, setCurrentDiv] = useState(0);
   const [currentEvent, setCurrentEvent] = useState(-1);
 
@@ -84,17 +86,19 @@ const Main = () => {
       .sort((a, b) => a.rank - b.rank)
       .map((team) => <Row team={team} key={team.team.team} />);
 
+      // sets the current div based on user interaction
       const handleDivChange = (event) => {
         setCurrentDiv(Number(event.target.value));
       };
-    
+
+      // sets the current event based on user interaction
       const handleEventChange = (event) => {
         setCurrentEvent(Number(event.target.value));
       };
 
   return (
     <>
-
+{/* Creates the dropdown menus on the site to be able to select specific divisions and events */}
       <div
         style={{ backgroundColor: "black", color: "white" }}
         className="row justify-content-center"

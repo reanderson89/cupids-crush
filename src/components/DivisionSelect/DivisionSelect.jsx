@@ -1,3 +1,6 @@
+// this component is used to create the selectable divisions listed in the "divisions" dropdown menu
+
+
 const DivisionSelect = ({ divisions, handleDivChange }) => {
 
   return (
